@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import ShoppingList from './components/ShoppingList'
 import Stores from './components/Stores'
+import ItemCatalog from './components/ItemCatalog'
 import { DEFAULT_STORES } from './data'
 
 function load(key, fallback) {
@@ -41,6 +42,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<ShoppingList items={items} onAdd={addItem} onRemove={removeItem} />} />
         <Route path="/stores" element={<Stores stores={DEFAULT_STORES} />} />
+        <Route path="/catalog" element={<ItemCatalog stores={DEFAULT_STORES} onAddToList={addItem} />} />
       </Routes>
     </>
   )

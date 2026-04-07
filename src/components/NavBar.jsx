@@ -16,6 +16,7 @@ export default function NavBar({ theme, onToggleTheme }) {
           <Nav activeKey={location.pathname} className="me-auto">
             <Nav.Link as={Link} to="/" eventKey="/">Shopping List</Nav.Link>
             <Nav.Link as={Link} to="/stores" eventKey="/stores">Stores</Nav.Link>
+            <Nav.Link as={Link} to="/catalog" eventKey="/catalog">Catalog</Nav.Link>
           </Nav>
           <Button variant="outline-light" size="sm" onClick={onToggleTheme}>
             {theme === 'light' ? '🌙' : '☀️'}
