@@ -16,9 +16,16 @@ let nextId = load('bb_nextId', 100)
 
 export default function App() {
   const [items, setItems] = useState(() => load('bb_items', []))
+  const [theme, setTheme] = useState(() => load('bb_theme', 'light'))
 
   useEffect(() => localStorage.setItem('bb_items', JSON.stringify(items)), [items])
   useEffect(() => localStorage.setItem('bb_nextId', JSON.stringify(nextId)), [nextId])
+  useEffect(() => {
+    localStorage.setItem('bb_theme', JSON.stringify(theme))
+    document.documentElement.setAttribute('data-bs-theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => setTheme(t => t === 'light' ? 'dark' : 'light')
 
   const addItem = (item) => {
     setItems(prev => [...prev, { ...item, id: nextId++ }])
@@ -30,7 +37,7 @@ export default function App() {
 
   return (
     <>
-      <NavBar />
+      <NavBar theme={theme} onToggleTheme={toggleTheme} />
       <Routes>
         <Route path="/" element={<ShoppingList items={items} onAdd={addItem} onRemove={removeItem} />} />
         <Route path="/stores" element={<Stores stores={DEFAULT_STORES} />} />
