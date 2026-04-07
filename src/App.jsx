@@ -1,14 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import ShoppingList from './components/ShoppingList'
 import Stores from './components/Stores'
 import { DEFAULT_STORES } from './data'
 
-let nextId = 100
+function load(key, fallback) {
+  try {
+    const saved = localStorage.getItem(key)
+    return saved ? JSON.parse(saved) : fallback
+  } catch { return fallback }
+}
+
+let nextId = load('bb_nextId', 100)
 
 export default function App() {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState(() => load('bb_items', []))
+
+  useEffect(() => localStorage.setItem('bb_items', JSON.stringify(items)), [items])
+  useEffect(() => localStorage.setItem('bb_nextId', JSON.stringify(nextId)), [nextId])
 
   const addItem = (item) => {
     setItems(prev => [...prev, { ...item, id: nextId++ }])
