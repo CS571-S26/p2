@@ -1,6 +1,7 @@
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
+import { formatPrice } from '../utils'
 
 export default function StoreCard({ store, onRemove }) {
   return (
@@ -22,7 +23,7 @@ export default function StoreCard({ store, onRemove }) {
           {store.items.map((item, i) => (
             <ListGroup.Item key={i} className="d-flex justify-content-between">
               <span>{item.name}</span>
-              <span className="text-muted">${item.price.toFixed(2)}</span>
+              <span className="text-muted">{formatPrice(item.price)}</span>
             </ListGroup.Item>
           ))}
         </ListGroup>

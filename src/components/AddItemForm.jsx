@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { priceValue } from '../utils'
 
 export default function AddItemForm({ stores, onAdd }) {
   const [name, setName] = useState('')
@@ -15,7 +16,7 @@ export default function AddItemForm({ stores, onAdd }) {
     if (!name.trim()) return
     onAdd({
       name: name.trim(),
-      price: price,
+      price: priceValue(price),
       store: store,
       quantity: parseInt(quantity) || 1,
     })
