@@ -17,6 +17,7 @@ let nextId = load('bb_nextId', 100)
 
 export default function App() {
   const [items, setItems] = useState(() => load('bb_items', []))
+  const [stores, setStores] = useState(() => load('bb_stores', DEFAULT_STORES))
   const [theme, setTheme] = useState(() => load('bb_theme', 'light'))
 
   useEffect(() => localStorage.setItem('bb_items', JSON.stringify(items)), [items])
@@ -36,13 +37,21 @@ export default function App() {
     setItems(prev => prev.filter(i => i.id !== id))
   }
 
+  const addStore = (store) => {
+    setStores(prev => [...prev, { ...store, id: nextId++ }])
+  }
+
+  const removeStore = (id) => {
+    setStores(prev => prev.filter(s => s.id !== id))
+  }
+
   return (
     <>
       <NavBar theme={theme} onToggleTheme={toggleTheme} />
       <Routes>
-        <Route path="/" element={<ShoppingList items={items} stores={DEFAULT_STORES} onAdd={addItem} onRemove={removeItem} />} />
-        <Route path="/stores" element={<Stores stores={DEFAULT_STORES} />} />
-        <Route path="/catalog" element={<ItemCatalog stores={DEFAULT_STORES} onAddToList={addItem} />} />
+        <Route path="/" element={<ShoppingList items={items} stores={stores} onAdd={addItem} onRemove={removeItem} />} />
+        <Route path="/stores" element={<Stores stores={stores} onAddStore={addStore} onRemoveStore={removeStore} />} />
+        <Route path="/catalog" element={<ItemCatalog stores={stores} onAddToList={addItem} />} />
       </Routes>
     </>
   )
