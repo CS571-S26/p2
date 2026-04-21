@@ -40,7 +40,7 @@ export default function App() {
     <>
       <NavBar theme={theme} onToggleTheme={toggleTheme} />
       <Routes>
-        <Route path="/" element={<ShoppingList items={items} onAdd={addItem} onRemove={removeItem} />} />
+        <Route path="/" element={<ShoppingList items={items} stores={DEFAULT_STORES} onAdd={addItem} onRemove={removeItem} />} />
         <Route path="/stores" element={<Stores stores={DEFAULT_STORES} />} />
         <Route path="/catalog" element={<ItemCatalog stores={DEFAULT_STORES} onAddToList={addItem} />} />
       </Routes>
