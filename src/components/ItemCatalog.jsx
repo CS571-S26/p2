@@ -5,8 +5,13 @@ import FilterBar from './FilterBar'
 import CatalogItem from './CatalogItem'
 import EmptyState from './EmptyState'
 
-export default function ItemCatalog({ stores, onAddToList }) {
+export default function ItemCatalog({ stores, onAddToList, showToast }) {
   const [filters, setFilters] = useState({ name: '', store: '', maxPrice: '' })
+
+  const handleAdd = (item) => {
+    onAddToList(item)
+    showToast(`Added "${item.name}" to your list`)
+  }
 
   const allItems = useMemo(() => {
     const out = []
@@ -41,7 +46,7 @@ export default function ItemCatalog({ stores, onAddToList }) {
               name={item.name}
               price={item.price}
               storeName={item.storeName}
-              onAdd={onAddToList}
+              onAdd={handleAdd}
             />
           ))}
         </ListGroup>

@@ -4,6 +4,7 @@ import NavBar from './components/NavBar'
 import MasterList from './components/MasterList'
 import Stores from './components/Stores'
 import ItemCatalog from './components/ItemCatalog'
+import NotificationToast from './components/NotificationToast'
 import { DEFAULT_STORES } from './data'
 
 function load(key, fallback) {
@@ -19,6 +20,7 @@ export default function App() {
   const [items, setItems] = useState(() => load('bb_items', []))
   const [stores, setStores] = useState(() => load('bb_stores', DEFAULT_STORES))
   const [theme, setTheme] = useState(() => load('bb_theme', 'light'))
+  const [toast, setToast] = useState({ show: false, message: '' })
 
   useEffect(() => localStorage.setItem('bb_items', JSON.stringify(items)), [items])
   useEffect(() => localStorage.setItem('bb_stores', JSON.stringify(stores)), [stores])
@@ -29,6 +31,8 @@ export default function App() {
   }, [theme])
 
   const toggleTheme = () => setTheme(t => t === 'light' ? 'dark' : 'light')
+  const showToast = (message) => setToast({ show: true, message })
+  const closeToast = () => setToast({ show: false, message: '' })
 
   const addItem = (item) => {
     setItems(prev => [...prev, { ...item, id: nextId++ }])
@@ -50,10 +54,11 @@ export default function App() {
     <>
       <NavBar theme={theme} onToggleTheme={toggleTheme} />
       <Routes>
-        <Route path="/" element={<MasterList items={items} stores={stores} onAdd={addItem} onRemove={removeItem} />} />
+        <Route path="/" element={<MasterList items={items} stores={stores} onAdd={addItem} onRemove={removeItem} showToast={showToast} />} />
         <Route path="/stores" element={<Stores stores={stores} onAddStore={addStore} onRemoveStore={removeStore} />} />
-        <Route path="/catalog" element={<ItemCatalog stores={stores} onAddToList={addItem} />} />
+        <Route path="/catalog" element={<ItemCatalog stores={stores} onAddToList={addItem} showToast={showToast} />} />
       </Routes>
+      <NotificationToast show={toast.show} message={toast.message} onClose={closeToast} />
     </>
   )
 }

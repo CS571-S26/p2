@@ -6,12 +6,10 @@ import GroceryItem from './GroceryItem'
 import AddItemForm from './AddItemForm'
 import EmptyState from './EmptyState'
 import ConfirmModal from './ConfirmModal'
-import NotificationToast from './NotificationToast'
 
-export default function MasterList({ items, stores, onAdd, onRemove }) {
+export default function MasterList({ items, stores, onAdd, onRemove, showToast }) {
   const [filters, setFilters] = useState({ name: '', store: '', maxPrice: '' })
   const [pendingDelete, setPendingDelete] = useState(null)
-  const [toast, setToast] = useState({ show: false, message: '' })
 
   const filtered = items.filter(item => {
     if (filters.name && !item.name.toLowerCase().includes(filters.name.toLowerCase())) return false
@@ -22,7 +20,7 @@ export default function MasterList({ items, stores, onAdd, onRemove }) {
 
   const handleAdd = (item) => {
     onAdd(item)
-    setToast({ show: true, message: `Added "${item.name}" to your list` })
+    showToast(`Added "${item.name}" to your list`)
   }
 
   const requestDelete = (id) => {
@@ -33,7 +31,7 @@ export default function MasterList({ items, stores, onAdd, onRemove }) {
   const confirmDelete = () => {
     if (pendingDelete) {
       onRemove(pendingDelete.id)
-      setToast({ show: true, message: `Removed "${pendingDelete.name}"` })
+      showToast(`Removed "${pendingDelete.name}"`)
     }
     setPendingDelete(null)
   }
@@ -61,11 +59,6 @@ export default function MasterList({ items, stores, onAdd, onRemove }) {
         message={pendingDelete ? `Remove "${pendingDelete.name}" from your shopping list?` : ''}
         onConfirm={confirmDelete}
         onCancel={() => setPendingDelete(null)}
-      />
-      <NotificationToast
-        show={toast.show}
-        message={toast.message}
-        onClose={() => setToast({ show: false, message: '' })}
       />
     </Container>
   )
