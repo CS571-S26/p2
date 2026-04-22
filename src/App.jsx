@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
-import ShoppingList from './components/ShoppingList'
+import MasterList from './components/MasterList'
 import Stores from './components/Stores'
 import ItemCatalog from './components/ItemCatalog'
 import { DEFAULT_STORES } from './data'
@@ -21,6 +21,7 @@ export default function App() {
   const [theme, setTheme] = useState(() => load('bb_theme', 'light'))
 
   useEffect(() => localStorage.setItem('bb_items', JSON.stringify(items)), [items])
+  useEffect(() => localStorage.setItem('bb_stores', JSON.stringify(stores)), [stores])
   useEffect(() => localStorage.setItem('bb_nextId', JSON.stringify(nextId)), [nextId])
   useEffect(() => {
     localStorage.setItem('bb_theme', JSON.stringify(theme))
@@ -49,7 +50,7 @@ export default function App() {
     <>
       <NavBar theme={theme} onToggleTheme={toggleTheme} />
       <Routes>
-        <Route path="/" element={<ShoppingList items={items} stores={stores} onAdd={addItem} onRemove={removeItem} />} />
+        <Route path="/" element={<MasterList items={items} stores={stores} onAdd={addItem} onRemove={removeItem} />} />
         <Route path="/stores" element={<Stores stores={stores} onAddStore={addStore} onRemoveStore={removeStore} />} />
         <Route path="/catalog" element={<ItemCatalog stores={stores} onAddToList={addItem} />} />
       </Routes>
