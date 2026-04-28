@@ -5,7 +5,7 @@ import StoreCard from './StoreCard'
 import AddStoreForm from './AddStoreForm'
 import PageHeader from './PageHeader'
 
-export default function Stores({ stores, onAddStore, onRemoveStore }) {
+export default function Stores({ stores, onAddStore, onRemoveStore, onAddItemToStore, onRemoveItemFromStore }) {
   return (
     <Container className="py-4">
       <PageHeader title="Store Directory" subtitle="Madison grocery stores. Add your own." />
@@ -14,7 +14,12 @@ export default function Stores({ stores, onAddStore, onRemoveStore }) {
       <Row>
         {stores.map(store => (
           <Col md={6} lg={4} key={store.id}>
-            <StoreCard store={store} onRemove={onRemoveStore} />
+            <StoreCard
+              store={store}
+              onRemove={onRemoveStore}
+              onAddItem={onAddItemToStore}
+              onRemoveItem={onRemoveItemFromStore}
+            />
           </Col>
         ))}
       </Row>

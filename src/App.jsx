@@ -51,13 +51,26 @@ export default function App() {
     setStores(prev => prev.filter(s => s.id !== id))
   }
 
+  const addItemToStore = (storeId, item) => {
+    setStores(prev => prev.map(s => s.id === storeId
+      ? { ...s, items: [...(s.items || []), item] }
+      : s))
+    showToast(`Added "${item.name}" to the catalog`)
+  }
+
+  const removeItemFromStore = (storeId, itemIdx) => {
+    setStores(prev => prev.map(s => s.id === storeId
+      ? { ...s, items: (s.items || []).filter((_, i) => i !== itemIdx) }
+      : s))
+  }
+
   return (
     <>
       <NavBar theme={theme} onToggleTheme={toggleTheme} />
       <main id="main-content">
         <Routes>
           <Route path="/" element={<MasterList items={items} stores={stores} onAdd={addItem} onRemove={removeItem} showToast={showToast} />} />
-          <Route path="/stores" element={<Stores stores={stores} onAddStore={addStore} onRemoveStore={removeStore} />} />
+          <Route path="/stores" element={<Stores stores={stores} onAddStore={addStore} onRemoveStore={removeStore} onAddItemToStore={addItemToStore} onRemoveItemFromStore={removeItemFromStore} />} />
           <Route path="/catalog" element={<ItemCatalog stores={stores} onAddToList={addItem} showToast={showToast} />} />
         </Routes>
       </main>
