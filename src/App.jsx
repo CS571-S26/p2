@@ -5,6 +5,7 @@ import MasterList from './components/MasterList'
 import Stores from './components/Stores'
 import ItemCatalog from './components/ItemCatalog'
 import NotificationToast from './components/NotificationToast'
+import Footer from './components/Footer'
 import { DEFAULT_STORES } from './data'
 
 function load(key, fallback) {
@@ -53,11 +54,14 @@ export default function App() {
   return (
     <>
       <NavBar theme={theme} onToggleTheme={toggleTheme} />
-      <Routes>
-        <Route path="/" element={<MasterList items={items} stores={stores} onAdd={addItem} onRemove={removeItem} showToast={showToast} />} />
-        <Route path="/stores" element={<Stores stores={stores} onAddStore={addStore} onRemoveStore={removeStore} />} />
-        <Route path="/catalog" element={<ItemCatalog stores={stores} onAddToList={addItem} showToast={showToast} />} />
-      </Routes>
+      <main id="main-content">
+        <Routes>
+          <Route path="/" element={<MasterList items={items} stores={stores} onAdd={addItem} onRemove={removeItem} showToast={showToast} />} />
+          <Route path="/stores" element={<Stores stores={stores} onAddStore={addStore} onRemoveStore={removeStore} />} />
+          <Route path="/catalog" element={<ItemCatalog stores={stores} onAddToList={addItem} showToast={showToast} />} />
+        </Routes>
+      </main>
+      <Footer />
       <NotificationToast show={toast.show} message={toast.message} onClose={closeToast} />
     </>
   )
