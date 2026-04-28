@@ -9,7 +9,7 @@ export default function StoreCard({ store, onRemove }) {
       <Card.Body>
         <div className="d-flex justify-content-between align-items-start">
           <div>
-            <Card.Title>{store.name}</Card.Title>
+            <Card.Title as="h3" className="h5">{store.name}</Card.Title>
             <Card.Text className="text-muted mb-1">{store.location}</Card.Text>
             <Card.Text><small>{store.hours}{store.phone ? ` | ${store.phone}` : ''}</small></Card.Text>
           </div>

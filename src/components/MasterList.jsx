@@ -6,6 +6,7 @@ import GroceryItem from './GroceryItem'
 import AddItemForm from './AddItemForm'
 import EmptyState from './EmptyState'
 import ConfirmModal from './ConfirmModal'
+import PageHeader from './PageHeader'
 
 export default function MasterList({ items, stores, onAdd, onRemove, showToast }) {
   const [filters, setFilters] = useState({ name: '', store: '', maxPrice: '' })
@@ -38,8 +39,9 @@ export default function MasterList({ items, stores, onAdd, onRemove, showToast }
 
   return (
     <Container className="py-4">
-      <h2 className="mb-3">Shopping List</h2>
+      <PageHeader title="Shopping List" subtitle="What you're buying this trip." />
       <AddItemForm stores={stores} onAdd={handleAdd} />
+      <h2 className="h5 mt-4 mb-2">Your items</h2>
       <FilterBar filters={filters} onChange={setFilters} stores={stores} showStore showMaxPrice />
       {filtered.length === 0 ? (
         <EmptyState message={items.length === 0

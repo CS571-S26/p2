@@ -28,7 +28,7 @@ export default function AddItemForm({ stores, onAdd }) {
 
   return (
     <Form onSubmit={handleSubmit} className="mb-3">
-      <h5 className="mb-2">Add a custom item</h5>
+      <h2 className="h5 mb-2">Add a custom item</h2>
       <Row className="g-2 align-items-end">
         <Col xs={12} sm={3}>
           <Form.Label htmlFor="custom-name">Name</Form.Label>

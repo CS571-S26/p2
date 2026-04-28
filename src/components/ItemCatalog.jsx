@@ -4,6 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import FilterBar from './FilterBar'
 import CatalogItem from './CatalogItem'
 import EmptyState from './EmptyState'
+import PageHeader from './PageHeader'
 
 export default function ItemCatalog({ stores, onAddToList, showToast }) {
   const [filters, setFilters] = useState({ name: '', store: '', maxPrice: '' })
@@ -33,8 +34,7 @@ export default function ItemCatalog({ stores, onAddToList, showToast }) {
 
   return (
     <Container className="py-4">
-      <h2 className="mb-3">Item Catalog</h2>
-      <p className="text-body-secondary">Browse items across every store. Click + to add to your list.</p>
+      <PageHeader title="Item Catalog" subtitle="Browse items across every store. Click + to add to your list." />
       <FilterBar filters={filters} onChange={setFilters} stores={stores} showStore showMaxPrice />
       {filtered.length === 0 ? (
         <EmptyState message="No items match your filters." />
