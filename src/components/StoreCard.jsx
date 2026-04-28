@@ -10,7 +10,7 @@ export default function StoreCard({ store, onRemove }) {
         <div className="d-flex justify-content-between align-items-start">
           <div>
             <Card.Title as="h3" className="h5">{store.name}</Card.Title>
-            <Card.Text className="text-muted mb-1">{store.location}</Card.Text>
+            <Card.Text className="text-body-secondary mb-1">{store.location}</Card.Text>
             <Card.Text><small>{store.hours}{store.phone ? ` | ${store.phone}` : ''}</small></Card.Text>
           </div>
           {onRemove && (
@@ -23,7 +23,7 @@ export default function StoreCard({ store, onRemove }) {
           {store.items.map((item, i) => (
             <ListGroup.Item key={i} className="d-flex justify-content-between">
               <span>{item.name}</span>
-              <span className="text-muted">{formatPrice(item.price)}</span>
+              <span className="text-body-secondary">{formatPrice(item.price)}</span>
             </ListGroup.Item>
           ))}
         </ListGroup>

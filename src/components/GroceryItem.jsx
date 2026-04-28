@@ -11,7 +11,7 @@ export default function GroceryItem({ item, onRemove }) {
       <div>
         <strong>{item.name}{qty}</strong>
         {item.store && <Badge bg="secondary" className="ms-2">{item.store}</Badge>}
-        {priceText && <span className="text-muted ms-2">{priceText}</span>}
+        {priceText && <span className="text-body-secondary ms-2">{priceText}</span>}
       </div>
       <Button variant="outline-danger" size="sm" onClick={() => onRemove(item.id)}>Remove</Button>
     </ListGroup.Item>

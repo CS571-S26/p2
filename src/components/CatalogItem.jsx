@@ -11,7 +11,7 @@ export default function CatalogItem({ name, price, storeName, onAdd }) {
         <Badge bg="secondary" className="ms-2">{storeName}</Badge>
       </div>
       <div className="d-flex align-items-center gap-2">
-        <span className="text-muted">{formatPrice(price)}</span>
+        <span className="text-body-secondary">{formatPrice(price)}</span>
         <Button
           variant="outline-primary"
           size="sm"
